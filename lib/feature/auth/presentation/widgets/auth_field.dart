@@ -18,15 +18,14 @@ class AuthField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
-        prefixIcon: hintIcon,
-        hintText: hintText,
-        hintStyle: const TextStyle(
-          color: AppPallete.black38,
-        )
-      ),
+          prefixIcon: hintIcon,
+          hintText: hintText,
+          hintStyle: const TextStyle(
+            color: AppPallete.black38,
+          )),
       validator: (value) {
         if (value!.isEmpty) {
-          return "$hintText is missing!";
+          return '$hintText is missing!';
         }
         return null;
       },

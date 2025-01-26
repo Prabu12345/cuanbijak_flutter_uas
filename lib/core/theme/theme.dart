@@ -3,16 +3,15 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static _border([Color color = AppPallete.borderColor]) => OutlineInputBorder(
-    borderSide: BorderSide(
-      color: color,
-      width: 3,
-    ),
-    borderRadius: BorderRadius.circular(10)
-  );
+      borderSide: BorderSide(
+        color: color,
+        width: 3,
+      ),
+      borderRadius: BorderRadius.circular(10));
   static final lightThemeMode = ThemeData.light().copyWith(
     scaffoldBackgroundColor: AppPallete.backgroundColor,
-    inputDecorationTheme:  InputDecorationTheme(
-      contentPadding: const EdgeInsets.all(18),
+    inputDecorationTheme: InputDecorationTheme(
+      contentPadding: const EdgeInsets.all(15),
       enabledBorder: _border(),
       focusedBorder: _border(AppPallete.gradient2),
     ),
