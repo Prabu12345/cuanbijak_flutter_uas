@@ -10,10 +10,16 @@ class AppTheme {
       borderRadius: BorderRadius.circular(10));
   static final lightThemeMode = ThemeData.light().copyWith(
     scaffoldBackgroundColor: AppPallete.backgroundColor,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: AppPallete.gradient2,
+      foregroundColor: AppPallete.whiteColor,
+    ),
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.all(15),
+      border: _border(),
       enabledBorder: _border(),
-      focusedBorder: _border(AppPallete.gradient2),
+      focusedBorder: _border(AppPallete.gradient1),
+      errorBorder: _border(AppPallete.errorColor),
     ),
   );
 }

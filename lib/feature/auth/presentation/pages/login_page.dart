@@ -53,85 +53,87 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             child: Center(
-              child: Container(
-                padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.9),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.15),
-                      blurRadius: 10,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
-                ),
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const Text(
-                        'Login',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 32,
-                          color: Colors.black87,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.2,
-                        ),
-                      ),
-                      const SizedBox(height: 25),
-                      AuthField(
-                          hintText: "Email",
-                          hintIcon: const Icon(Icons.person),
-                          controller: emailController),
-                      const SizedBox(height: 15),
-                      AuthField(
-                        hintText: "Password",
-                        hintIcon: const Icon(Icons.lock),
-                        controller: passwordController,
-                        isObscureText: true,
-                      ),
-                      const SizedBox(height: 15),
-                      AuthButton(
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            context.read<AuthBloc>().add(
-                                  AuthLogin(
-                                    email: emailController.text.trim(),
-                                    password: passwordController.text.trim(),
-                                  ),
-                                );
-                          }
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(context, RegisterPage.route());
-                        },
-                        child: RichText(
-                          text: TextSpan(
-                              text: 'Don\'t have an account? ',
-                              style: Theme.of(context).textTheme.titleMedium,
-                              children: [
-                                TextSpan(
-                                  text: 'Sign Up',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium
-                                      ?.copyWith(
-                                        color: AppPallete.gradient2,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                ),
-                              ]),
-                          textAlign: TextAlign.center,
-                        ),
+              child: SingleChildScrollView(
+                child: Container(
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.9),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.15),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
                       ),
                     ],
+                  ),
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const Text(
+                          'Login',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 32,
+                            color: Colors.black87,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.2,
+                          ),
+                        ),
+                        const SizedBox(height: 25),
+                        AuthField(
+                            hintText: "Email",
+                            hintIcon: const Icon(Icons.person),
+                            controller: emailController),
+                        const SizedBox(height: 15),
+                        AuthField(
+                          hintText: "Password",
+                          hintIcon: const Icon(Icons.lock),
+                          controller: passwordController,
+                          isObscureText: true,
+                        ),
+                        const SizedBox(height: 15),
+                        AuthButton(
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
+                              context.read<AuthBloc>().add(
+                                    AuthLogin(
+                                      email: emailController.text.trim(),
+                                      password: passwordController.text.trim(),
+                                    ),
+                                  );
+                            }
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, RegisterPage.route());
+                          },
+                          child: RichText(
+                            text: TextSpan(
+                                text: 'Don\'t have an account? ',
+                                style: Theme.of(context).textTheme.titleMedium,
+                                children: [
+                                  TextSpan(
+                                    text: 'Sign Up',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.copyWith(
+                                          color: AppPallete.gradient2,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
+                                ]),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

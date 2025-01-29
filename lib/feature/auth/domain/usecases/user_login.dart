@@ -1,6 +1,6 @@
 import 'package:cuanbijak_flutter_uas/core/error/failures.dart';
 import 'package:cuanbijak_flutter_uas/core/usecase/usecase.dart';
-import 'package:cuanbijak_flutter_uas/feature/auth/domain/entities/user_entity.dart';
+import 'package:cuanbijak_flutter_uas/core/common/entities/user_entity.dart';
 import 'package:cuanbijak_flutter_uas/feature/auth/domain/repository/auth_repository.dart';
 import 'package:fpdart/fpdart.dart';
 
