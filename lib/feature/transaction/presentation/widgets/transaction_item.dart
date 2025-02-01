@@ -65,7 +65,7 @@ class TransactionItem extends StatelessWidget {
             ),
           ),
           Text(
-            currenctyFormat(transaction.money),
+            currenctyFormat(transaction.money, false),
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,

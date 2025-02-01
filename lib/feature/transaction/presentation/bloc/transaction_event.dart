@@ -48,3 +48,10 @@ final class UpdateTransaction extends TransactionEvent {
     required this.date,
   });
 }
+
+final class DeleteTransactions extends TransactionEvent {
+  final String ownerId;
+  final String id;
+
+  DeleteTransactions({required this.ownerId, required this.id});
+}

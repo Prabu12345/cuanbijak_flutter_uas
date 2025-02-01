@@ -27,4 +27,7 @@ abstract interface class TransactionRepository {
     required DateTime date,
     required String transactionStatus,
   });
+
+  Future<Either<Failure, TransactionEntity>> deleteTransaction(
+      {required String ownerId, required String id});
 }

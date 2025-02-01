@@ -65,13 +65,14 @@ class TransactionRepositoryImpl implements TransactionRepository {
   }
 
   @override
-  Future<Either<Failure, TransactionEntity>> updateTransaction(
-      {required String id,
-      required String ownerId,
-      required double money,
-      required String category,
-      required DateTime date,
-      required String transactionStatus}) async {
+  Future<Either<Failure, TransactionEntity>> updateTransaction({
+    required String id,
+    required String ownerId,
+    required double money,
+    required String category,
+    required DateTime date,
+    required String transactionStatus,
+  }) async {
     try {
       TransactionModel transactionModel = TransactionModel(
         id: id,
@@ -85,6 +86,21 @@ class TransactionRepositoryImpl implements TransactionRepository {
 
       final transactions =
           await transactionRemoteDatasource.updateTransaction(transactionModel);
+
+      return right(transactions);
+    } on ServerExpection catch (e) {
+      return left(Failure(e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, TransactionEntity>> deleteTransaction({
+    required String ownerId,
+    required String id,
+  }) async {
+    try {
+      final transactions = await transactionRemoteDatasource.deleteTransaction(
+          ownerId: ownerId, id: id);
 
       return right(transactions);
     } on ServerExpection catch (e) {

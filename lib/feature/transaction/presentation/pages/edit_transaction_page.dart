@@ -82,6 +82,17 @@ class _EditTransactionPage extends State<EditTransactionPage>
     }
   }
 
+  void _deleteTransaction() {
+    final ownerId =
+        (context.read<AppUserCubit>().state as AppUserLoggedIn).user.id;
+    context.read<TransactionBloc>().add(
+          DeleteTransactions(
+            id: widget.transactionToEdit!.id,
+            ownerId: ownerId,
+          ),
+        );
+  }
+
   @override
   void dispose() {
     _buttonAnimationController.dispose();
@@ -117,6 +128,9 @@ class _EditTransactionPage extends State<EditTransactionPage>
         } else if (state is TransactionUpdateSuccess) {
           Navigator.pushAndRemoveUntil(
               context, TransactionPage.route(), (route) => false);
+        } else if (state is TransactionDeleteSuccess) {
+          Navigator.pushAndRemoveUntil(
+              context, TransactionPage.route(), (route) => false);
         }
       },
       builder: (context, state) {
@@ -127,6 +141,37 @@ class _EditTransactionPage extends State<EditTransactionPage>
         return Scaffold(
           appBar: AppBar(
             title: const Text('Edit Transaction'),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.delete),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Delete Transaction'),
+                      content: const Text(
+                          'Are you sure you want to delete this transaction?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            _deleteTransaction();
+                          },
+                          child: const Text(
+                            'Delete',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
           body: Form(
             key: formKey,

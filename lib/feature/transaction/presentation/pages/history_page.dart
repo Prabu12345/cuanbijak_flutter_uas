@@ -130,7 +130,7 @@ class _HistoryPageState extends State<HistoryPage> {
               ),
               const Spacer(),
               Text(
-                'Total: ${currenctyFormat(calculateTotalMoney(transaction))}',
+                'Total: ${currenctyFormat(calculateTotalMoney(transaction), false)}',
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,

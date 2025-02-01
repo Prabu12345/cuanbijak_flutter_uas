@@ -10,6 +10,7 @@ import 'package:cuanbijak_flutter_uas/feature/auth/presentation/bloc/auth_bloc.d
 import 'package:cuanbijak_flutter_uas/feature/transaction/data/datasources/remote/transaction_remote_datasource.dart';
 import 'package:cuanbijak_flutter_uas/feature/transaction/data/repositories/transaction_repository_impl.dart';
 import 'package:cuanbijak_flutter_uas/feature/transaction/domain/repositories/transaction_repository.dart';
+import 'package:cuanbijak_flutter_uas/feature/transaction/domain/usecases/delete_transaction.dart';
 import 'package:cuanbijak_flutter_uas/feature/transaction/domain/usecases/get_all_filtered_transaction.dart';
 import 'package:cuanbijak_flutter_uas/feature/transaction/domain/usecases/get_all_transaction.dart';
 import 'package:cuanbijak_flutter_uas/feature/transaction/domain/usecases/update_transaction.dart';
@@ -109,6 +110,11 @@ void _initBloc() {
         serviceLocator(),
       ),
     )
+    ..registerFactory(
+      () => DeleteTransaction(
+        serviceLocator(),
+      ),
+    )
     // bloc
     ..registerLazySingleton(
       () => TransactionBloc(
@@ -116,6 +122,7 @@ void _initBloc() {
         getAllTransaction: serviceLocator(),
         getAllFilteredTransaction: serviceLocator(),
         updateTransactionUsecase: serviceLocator(),
+        deleteTransactionUsecase: serviceLocator(),
       ),
     );
 }

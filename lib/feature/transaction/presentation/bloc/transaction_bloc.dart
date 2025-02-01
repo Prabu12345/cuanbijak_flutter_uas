@@ -1,4 +1,5 @@
 import 'package:cuanbijak_flutter_uas/feature/transaction/domain/entities/transaction_entity.dart';
+import 'package:cuanbijak_flutter_uas/feature/transaction/domain/usecases/delete_transaction.dart';
 import 'package:cuanbijak_flutter_uas/feature/transaction/domain/usecases/get_all_filtered_transaction.dart';
 import 'package:cuanbijak_flutter_uas/feature/transaction/domain/usecases/get_all_transaction.dart';
 import 'package:cuanbijak_flutter_uas/feature/transaction/domain/usecases/update_transaction.dart';
@@ -14,21 +15,25 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   final GetAllTransaction _getAllTransaction;
   final GetAllFilteredTransaction _getAllFilteredTransaction;
   final UpdateTransactionUsecase _updateTransactionUsecase;
+  final DeleteTransaction _deleteTransactionUsecase;
   TransactionBloc({
     required UploadTransactionUsecase uploadTransactionUsecase,
     required GetAllTransaction getAllTransaction,
     required GetAllFilteredTransaction getAllFilteredTransaction,
     required UpdateTransactionUsecase updateTransactionUsecase,
+    required DeleteTransaction deleteTransactionUsecase,
   })  : _uploadTransactionUsecase = uploadTransactionUsecase,
         _getAllTransaction = getAllTransaction,
         _getAllFilteredTransaction = getAllFilteredTransaction,
         _updateTransactionUsecase = updateTransactionUsecase,
+        _deleteTransactionUsecase = deleteTransactionUsecase,
         super(TransactionInitial()) {
     on<TransactionEvent>((event, emit) => emit(TransactionLoading()));
     on<TrsansactionUpload>(_onTransactionUpload);
     on<FetchAllTransaction>(_onFetchAllTransaction);
     on<FilterTransactions>(_onFetchAllFiltredTransaction);
     on<UpdateTransaction>(_onUpdateTransaction);
+    on<DeleteTransactions>(_onDeleteTransaction);
   }
 
   void _onTransactionUpload(
@@ -93,6 +98,19 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     response.fold(
       (l) => emit(TransactionFailure(l.message)),
       (r) => emit(TransactionUpdateSuccess()),
+    );
+  }
+
+  void _onDeleteTransaction(
+    DeleteTransactions event,
+    Emitter<TransactionState> emit,
+  ) async {
+    final response = await _deleteTransactionUsecase(
+        DeleteTransactionParams(ownerId: event.ownerId, id: event.id));
+
+    response.fold(
+      (l) => emit(TransactionFailure(l.message)),
+      (r) => emit(TransactionDeleteSuccess()),
     );
   }
 }

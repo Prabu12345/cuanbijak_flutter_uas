@@ -5,9 +5,15 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 abstract interface class TransactionRemoteDatasource {
   Future<TransactionModel> uploadTransaction(TransactionModel transaction);
   Future<List<TransactionModel>> getAllTransaction(String ownerId);
-  Future<List<TransactionModel>> getAllFilteredTransaction(
-      {required String ownerId, required String filter});
+  Future<List<TransactionModel>> getAllFilteredTransaction({
+    required String ownerId,
+    required String filter,
+  });
   Future<TransactionModel> updateTransaction(TransactionModel transaction);
+  Future<TransactionModel> deleteTransaction({
+    required String ownerId,
+    required String id,
+  });
 }
 
 class TransactionRemoteDatasourceImpl implements TransactionRemoteDatasource {
@@ -99,6 +105,25 @@ class TransactionRemoteDatasourceImpl implements TransactionRemoteDatasource {
           .single();
 
       return TransactionModel.fromJson(response);
+    } catch (e) {
+      throw ServerExpection(e.toString());
+    }
+  }
+
+  @override
+  Future<TransactionModel> deleteTransaction({
+    required String ownerId,
+    required String id,
+  }) async {
+    try {
+      final response = await supabaseClient
+          .from('transaction')
+          .delete()
+          .eq('id', id)
+          .eq('owner_id', ownerId)
+          .select();
+
+      return TransactionModel.fromJson(response.first);
     } catch (e) {
       throw ServerExpection(e.toString());
     }

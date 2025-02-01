@@ -51,13 +51,11 @@ class _NavbarPageState extends State<TransactionPage> {
           });
         },
       ),
-      body: SafeArea(
-        child: SizedBox.expand(
-          child: PageView(
-            physics: const NeverScrollableScrollPhysics(),
-            controller: pageController,
-            children: const [DashboardPage(), HistoryPage(), ProfilePage()],
-          ),
+      body: SizedBox.expand(
+        child: PageView(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: pageController,
+          children: const [DashboardPage(), HistoryPage(), ProfilePage()],
         ),
       ),
     );
