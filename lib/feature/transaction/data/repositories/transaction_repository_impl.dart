@@ -50,4 +50,45 @@ class TransactionRepositoryImpl implements TransactionRepository {
       return left(Failure(e.message));
     }
   }
+
+  @override
+  Future<Either<Failure, List<TransactionEntity>>> getAllFilteredTransaction(
+      {required String ownerId, required String filter}) async {
+    try {
+      final transactions = await transactionRemoteDatasource
+          .getAllFilteredTransaction(ownerId: ownerId, filter: filter);
+
+      return right(transactions);
+    } on ServerExpection catch (e) {
+      return left(Failure(e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, TransactionEntity>> updateTransaction(
+      {required String id,
+      required String ownerId,
+      required double money,
+      required String category,
+      required DateTime date,
+      required String transactionStatus}) async {
+    try {
+      TransactionModel transactionModel = TransactionModel(
+        id: id,
+        ownerId: ownerId,
+        money: money,
+        category: category,
+        date: date,
+        updatedAt: DateTime.now(),
+        transactionStatus: transactionStatus,
+      );
+
+      final transactions =
+          await transactionRemoteDatasource.updateTransaction(transactionModel);
+
+      return right(transactions);
+    } on ServerExpection catch (e) {
+      return left(Failure(e.message));
+    }
+  }
 }

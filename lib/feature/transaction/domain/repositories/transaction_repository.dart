@@ -13,4 +13,18 @@ abstract interface class TransactionRepository {
 
   Future<Either<Failure, List<TransactionEntity>>> getAllTransaction(
       String ownerId);
+
+  Future<Either<Failure, List<TransactionEntity>>> getAllFilteredTransaction({
+    required String ownerId,
+    required String filter,
+  });
+
+  Future<Either<Failure, TransactionEntity>> updateTransaction({
+    required String id,
+    required String ownerId,
+    required double money,
+    required String category,
+    required DateTime date,
+    required String transactionStatus,
+  });
 }

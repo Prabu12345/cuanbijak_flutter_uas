@@ -1,5 +1,4 @@
 import 'package:cuanbijak_flutter_uas/core/theme/app_pallete.dart';
-import 'package:cuanbijak_flutter_uas/feature/transaction/presentation/widgets/transaction_button.dart';
 import 'package:flutter/material.dart';
 
 class CategoryPage extends StatefulWidget {
@@ -13,7 +12,49 @@ class CategoryPage extends StatefulWidget {
 }
 
 class _CategoryPageState extends State<CategoryPage> {
-  String selectedStatus = 'Food';
+  String? selectedCategory;
+  final List<Map<String, dynamic>> categories = [
+    {
+      'name': 'Food & Drinks',
+      'subcategories': ['Groceries', 'Restaurants', 'Snacks', 'Coffee'],
+      'icon': Icons.restaurant,
+    },
+    {
+      'name': 'Shopping',
+      'subcategories': ['Clothing', 'Electronics', 'Home Goods'],
+      'icon': Icons.shopping_bag,
+    },
+    {
+      'name': 'Housing',
+      'subcategories': ['Rent', 'Mortgage', 'Utilities', 'Maintenance'],
+      'icon': Icons.home,
+    },
+    {
+      'name': 'Transportation',
+      'subcategories': ['Public Transport', 'Taxi', 'Fuel', 'Parking'],
+      'icon': Icons.directions_car,
+    },
+    {
+      'name': 'Life & Entertainment',
+      'subcategories': ['Movies', 'Concerts', 'Hobbies', 'Sports'],
+      'icon': Icons.sports_esports,
+    },
+    {
+      'name': 'Financial Expenses',
+      'subcategories': ['Insurance', 'Taxes', 'Fees', 'Loans'],
+      'icon': Icons.attach_money,
+    },
+    {
+      'name': 'Income',
+      'subcategories': ['Salary', 'Bonus', 'Freelance', 'Investments'],
+      'icon': Icons.account_balance_wallet,
+    },
+    {
+      'name': 'Others',
+      'subcategories': ['Gifts', 'Donations', 'Uncategorized'],
+      'icon': Icons.category,
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -24,50 +65,59 @@ class _CategoryPageState extends State<CategoryPage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pop(context, selectedStatus);
+              if (selectedCategory != null) {
+                Navigator.pop(context, selectedCategory);
+              }
             },
             icon: const Icon(Icons.done_rounded),
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              'Food',
-              'Salary',
-              'Bill',
-            ]
-                .map(
-                  (e) => Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: TransactionButton(
-                              onPressed: () {
+      body: ListView.builder(
+        padding: const EdgeInsets.all(16),
+        itemCount: categories.length,
+        itemBuilder: (context, index) {
+          final category = categories[index];
+          return Card(
+            margin: const EdgeInsets.only(bottom: 12),
+            child: ExpansionTile(
+              leading: Icon(category['icon'], color: AppPallete.black),
+              title: Text(
+                category['name'],
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                ),
+              ),
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: (category['subcategories'] as List<String>)
+                        .map((subcategory) => ListTile(
+                              title: Text(subcategory),
+                              trailing: Radio<String>(
+                                value: subcategory,
+                                groupValue: selectedCategory,
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectedCategory = value;
+                                  });
+                                },
+                              ),
+                              onTap: () {
                                 setState(() {
-                                  selectedStatus = e;
+                                  selectedCategory = subcategory;
                                 });
                               },
-                              backgroundColor: selectedStatus == e
-                                  ? AppPallete.whiteColor
-                                  : AppPallete.whiteColor70,
-                              foregroundColor: AppPallete.black,
-                              textButton: e,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 10)
-                    ],
+                            ))
+                        .toList(),
                   ),
-                )
-                .toList(),
-          ),
-        ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

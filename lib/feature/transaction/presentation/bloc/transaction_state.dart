@@ -14,6 +14,8 @@ final class TransactionFailure extends TransactionState {
 
 final class TransactionUploadSuccess extends TransactionState {}
 
+final class TransactionUpdateSuccess extends TransactionState {}
+
 final class TransactionDisplaySuccess extends TransactionState {
   final List<TransactionEntity> transaction;
   TransactionDisplaySuccess(this.transaction);
