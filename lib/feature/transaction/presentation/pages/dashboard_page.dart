@@ -435,14 +435,19 @@ class _DashboardPageState extends State<DashboardPage> {
           children: [
             Row(
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 30,
                   backgroundColor: Colors.white,
-                  child: Icon(
-                    Icons.person,
-                    size: 30,
-                    color: AppPallete.gradient2,
-                  ),
+                  backgroundImage: user.avatarUrl != ''
+                      ? NetworkImage(user.avatarUrl)
+                      : null,
+                  child: user.avatarUrl == ''
+                      ? const Icon(
+                          Icons.person,
+                          size: 80,
+                          color: AppPallete.gradient2,
+                        )
+                      : null,
                 ),
                 const SizedBox(width: 20),
                 Column(

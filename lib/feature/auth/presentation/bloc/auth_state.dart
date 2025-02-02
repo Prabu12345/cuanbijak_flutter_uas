@@ -14,6 +14,21 @@ final class AuthSuccess extends AuthState {
   const AuthSuccess(this.user);
 }
 
+final class UpdateSuccess extends AuthState {
+  final UserEntity user;
+  const UpdateSuccess(this.user);
+}
+
+final class LogoutUserSuccess extends AuthState {
+  final bool status;
+  const LogoutUserSuccess(this.status);
+}
+
+final class ChangeUserSuccess extends AuthState {
+  final bool status;
+  const ChangeUserSuccess(this.status);
+}
+
 final class AuthFailure extends AuthState {
   final String message;
   const AuthFailure(this.message);

@@ -42,6 +42,9 @@ class _RegisterPageState extends State<RegisterPage> {
         listener: (context, state) {
           if (state is AuthFailure) {
             showSnackBar(context, state.message);
+          } else if (state is AuthSuccess) {
+            Navigator.pushAndRemoveUntil(
+                context, LoginPage.route(), (route) => false);
           }
         },
         builder: (context, state) {

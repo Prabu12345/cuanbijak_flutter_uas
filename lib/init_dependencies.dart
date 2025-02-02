@@ -3,7 +3,10 @@ import 'package:cuanbijak_flutter_uas/core/secrets/app_secrets.dart';
 import 'package:cuanbijak_flutter_uas/feature/auth/data/datasources/remote/auth_remote_data_source.dart';
 import 'package:cuanbijak_flutter_uas/feature/auth/data/repositories/auth_repository_impl.dart';
 import 'package:cuanbijak_flutter_uas/feature/auth/domain/repository/auth_repository.dart';
+import 'package:cuanbijak_flutter_uas/feature/auth/domain/usecases/change_password_user.dart';
 import 'package:cuanbijak_flutter_uas/feature/auth/domain/usecases/current_user.dart';
+import 'package:cuanbijak_flutter_uas/feature/auth/domain/usecases/logout_user.dart';
+import 'package:cuanbijak_flutter_uas/feature/auth/domain/usecases/update_user.dart';
 import 'package:cuanbijak_flutter_uas/feature/auth/domain/usecases/user_login.dart';
 import 'package:cuanbijak_flutter_uas/feature/auth/domain/usecases/user_register.dart';
 import 'package:cuanbijak_flutter_uas/feature/auth/presentation/bloc/auth_bloc.dart';
@@ -64,6 +67,21 @@ void _initAuth() {
         serviceLocator(),
       ),
     )
+    ..registerFactory(
+      () => ChangePasswordUser(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory(
+      () => LogoutUser(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory(
+      () => UpdateUser(
+        serviceLocator(),
+      ),
+    )
     // bloc
     ..registerLazySingleton(
       () => AuthBloc(
@@ -71,6 +89,9 @@ void _initAuth() {
         userLogin: serviceLocator(),
         currentUser: serviceLocator(),
         appUserCubit: serviceLocator(),
+        changePasswordUser: serviceLocator(),
+        logoutUser: serviceLocator(),
+        updateUser: serviceLocator(),
       ),
     );
 }

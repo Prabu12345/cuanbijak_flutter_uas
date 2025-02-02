@@ -5,6 +5,7 @@ import 'package:cuanbijak_flutter_uas/feature/auth/presentation/bloc/auth_bloc.d
 import 'package:cuanbijak_flutter_uas/feature/auth/presentation/pages/register_page.dart';
 import 'package:cuanbijak_flutter_uas/feature/auth/presentation/widgets/auth_button.dart';
 import 'package:cuanbijak_flutter_uas/feature/auth/presentation/widgets/auth_field.dart';
+import 'package:cuanbijak_flutter_uas/feature/transaction/presentation/pages/transaction_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,6 +38,9 @@ class _LoginPageState extends State<LoginPage> {
         listener: (context, state) {
           if (state is AuthFailure) {
             showSnackBar(context, state.message);
+          } else if (state is AuthSuccess) {
+            Navigator.pushAndRemoveUntil(
+                context, TransactionPage.route(), (route) => false);
           }
         },
         builder: (context, state) {

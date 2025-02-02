@@ -26,3 +26,27 @@ final class AuthLogin extends AuthEvent {
 }
 
 final class AuthIsUserLoggedIn extends AuthEvent {}
+
+final class ChangePasswordUsers extends AuthEvent {
+  final String password;
+
+  ChangePasswordUsers({
+    required this.password,
+  });
+}
+
+final class LogoutUsers extends AuthEvent {}
+
+final class UpdateUserData extends AuthEvent {
+  final String id;
+  final String name;
+  final String phoneNumber;
+  final File? image;
+
+  UpdateUserData({
+    required this.id,
+    required this.name,
+    required this.phoneNumber,
+    this.image,
+  });
+}
