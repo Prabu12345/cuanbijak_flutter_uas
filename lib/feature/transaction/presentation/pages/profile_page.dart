@@ -210,7 +210,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               backgroundImage: _profileImage != null
                                   ? FileImage(_profileImage!)
                                   : user.avatarUrl != ''
-                                      ? NetworkImage(user.avatarUrl)
+                                      ? NetworkImage(
+                                          '${user.avatarUrl}?t=${DateTime.now().millisecondsSinceEpoch}')
                                       : null,
                               child:
                                   _profileImage == null && user.avatarUrl == ''

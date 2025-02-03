@@ -439,12 +439,13 @@ class _DashboardPageState extends State<DashboardPage> {
                   radius: 30,
                   backgroundColor: Colors.white,
                   backgroundImage: user.avatarUrl != ''
-                      ? NetworkImage(user.avatarUrl)
+                      ? NetworkImage(
+                          '${user.avatarUrl}?t=${DateTime.now().millisecondsSinceEpoch}')
                       : null,
                   child: user.avatarUrl == ''
                       ? const Icon(
                           Icons.person,
-                          size: 80,
+                          size: 40,
                           color: AppPallete.gradient2,
                         )
                       : null,
